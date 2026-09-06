@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Application settings (single row keyed settings store)
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+// User watchlist of regions monitored for fire activity
+model WatchRegion {
+  id        String   @id @default(cuid())
+  name      String
+  west      Float
+  south     Float
+  east      Float
+  north     Float
+  sources   String   @default("all") // comma separated: viirs_snpp,viirs_noaa20,viirs_noaa21,modis_terra,modis_aqua
+  createdAt DateTime @default(now())
+}
+
+// Fire alerts raised when hotspots appear in watched regions
+model FireAlert {
+  id           String   @id @default(cuid())
+  regionName   String
+  lat          Float
+  lon          Float
+  brightness   Float
+  frp          Float
+  satellite    String
+  acquiredAt   String
+  dayNight     String
+  severity     String   @default("low") // low | moderate | high | extreme
+  acknowledged Boolean  @default(false)
+  createdAt    DateTime @default(now())
+
+  @@unique([regionName, satellite, lat, lon, acquiredAt])
+  @@index([regionName, createdAt])
+  @@index([acknowledged])
+}
