@@ -4,7 +4,7 @@ import { fetchEonetWildfires } from "@/lib/nasa/eonet";
 import { cacheGetFresh, cacheSet, CACHE_TTL } from "@/lib/nasa/cache";
 import { resolveFirmsMapKey } from "@/lib/nasa/settings";
 import { fetchWithTimeout } from "@/lib/nasa/firms";
-import { todayUtc } from "@/lib/nasa/registry";
+import { shiftDate, todayUtc } from "@/lib/nasa/registry";
 
 export const dynamic = "force-dynamic";
 
@@ -95,7 +95,7 @@ export async function GET() {
   try {
     const t0 = Date.now();
     const res = await fetchWithTimeout(
-      `https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/${today}/GoogleMapsCompatible_Level9/4/6/12.jpg`,
+      `https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_SNPP_CorrectedReflectance_TrueColor/default/${shiftDate(today, -1)}/GoogleMapsCompatible_Level9/4/6/12.jpg`,
       8000
     );
     imagery = { ok: res.ok, detail: res.ok ? "true-color imagery serving" : `HTTP ${res.status}`, latencyMs: Date.now() - t0 };

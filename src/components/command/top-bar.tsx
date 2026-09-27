@@ -5,6 +5,7 @@ import { Flame, RefreshCw, Settings2, Radio } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { ThemeToggle } from "@/components/theme-toggle";
 import type { SourcesStatusPayload } from "@/lib/types";
 
 interface TopBarProps {
@@ -178,6 +179,8 @@ export function TopBar({
             <RefreshCw className={`h-3.5 w-3.5 ${refreshing ? "animate-spin" : ""}`} />
             <span className="hidden sm:inline">Refresh</span>
           </Button>
+
+          <ThemeToggle />
 
           <Button
             size="sm"

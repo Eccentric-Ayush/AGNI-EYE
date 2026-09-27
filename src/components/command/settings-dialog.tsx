@@ -157,7 +157,7 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
               <Button size="sm" variant="outline" onClick={handleValidate} disabled={!keyInput.trim() || validate.isPending} className="h-8 text-[10px]">
                 {validate.isPending ? <Loader2 className="h-3 w-3 animate-spin" /> : "VALIDATE"}
               </Button>
-              <Button size="sm" onClick={handleSave} disabled={!keyInput.trim() || saveKey.isPending} className="h-8 bg-orange-600 text-[10px] hover:bg-orange-500">
+              <Button size="sm" onClick={handleSave} disabled={!keyInput.trim() || saveKey.isPending} className="h-8 bg-orange-600 text-[10px] text-white hover:bg-orange-500">
                 SAVE
               </Button>
               {settings?.firmsMapKey.configured && (

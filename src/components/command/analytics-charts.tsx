@@ -19,12 +19,15 @@ import type { FiresStats } from "@/lib/types";
 import { SOURCE_LABELS, type GibsSource } from "@/lib/types";
 
 const tooltipStyle = {
-  backgroundColor: "oklch(0.19 0.006 285.9)",
-  border: "1px solid oklch(1 0 0 / 12%)",
+  backgroundColor: "var(--popover)",
+  border: "1px solid var(--border)",
   borderRadius: 8,
   fontSize: 11,
-  color: "#fafafa",
+  color: "var(--popover-foreground)",
 } as const;
+
+const axisTick = { fontSize: 9, fill: "var(--muted-foreground)" } as const;
+const gridStroke = "var(--border)";
 
 const SOURCE_COLORS: Record<string, string> = {
   viirs_snpp: "#f97316",
@@ -61,7 +64,7 @@ export function AnalyticsCharts({ stats }: { stats: FiresStats | undefined }) {
       {/* Hourly */}
       <Card className="border-border/60 bg-card/70">
         <CardHeader className="pb-1">
-          <CardTitle className="text-[11px] font-semibold tracking-[0.15em] text-muted-foreground">
+          <CardTitle className="text-xs font-semibold tracking-[0.2em] text-muted-foreground">
             DETECTIONS BY ACQ HOUR (UTC)
           </CardTitle>
         </CardHeader>
@@ -74,15 +77,15 @@ export function AnalyticsCharts({ stats }: { stats: FiresStats | undefined }) {
                   <stop offset="100%" stopColor="#f97316" stopOpacity={0.05} />
                 </linearGradient>
               </defs>
-              <CartesianGrid stroke="oklch(1 0 0 / 6%)" vertical={false} />
+              <CartesianGrid stroke={gridStroke} vertical={false} />
               <XAxis
                 dataKey="hour"
-                tick={{ fontSize: 8, fill: "#a1a1aa" }}
+                tick={axisTick}
                 interval={3}
                 tickLine={false}
-                axisLine={{ stroke: "oklch(1 0 0 / 10%)" }}
+                axisLine={{ stroke: gridStroke }}
               />
-              <YAxis tick={{ fontSize: 9, fill: "#a1a1aa" }} tickLine={false} axisLine={false} />
+              <YAxis tick={axisTick} tickLine={false} axisLine={false} />
               <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: "#f97316" }} />
               <Area
                 type="monotone"
@@ -100,22 +103,22 @@ export function AnalyticsCharts({ stats }: { stats: FiresStats | undefined }) {
       {/* FRP buckets */}
       <Card className="border-border/60 bg-card/70">
         <CardHeader className="pb-1">
-          <CardTitle className="text-[11px] font-semibold tracking-[0.15em] text-muted-foreground">
+          <CardTitle className="text-xs font-semibold tracking-[0.2em] text-muted-foreground">
             FIRE RADIATIVE POWER (MW)
           </CardTitle>
         </CardHeader>
         <CardContent className="h-40">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={stats.frpBuckets} margin={{ top: 4, right: 4, left: -22, bottom: 0 }}>
-              <CartesianGrid stroke="oklch(1 0 0 / 6%)" vertical={false} />
+              <CartesianGrid stroke={gridStroke} vertical={false} />
               <XAxis
                 dataKey="bucket"
-                tick={{ fontSize: 8, fill: "#a1a1aa" }}
+                tick={axisTick}
                 tickLine={false}
-                axisLine={{ stroke: "oklch(1 0 0 / 10%)" }}
+                axisLine={{ stroke: gridStroke }}
               />
-              <YAxis tick={{ fontSize: 9, fill: "#a1a1aa" }} tickLine={false} axisLine={false} />
-              <Tooltip contentStyle={tooltipStyle} cursor={{ fill: "oklch(1 0 0 / 4%)" }} />
+              <YAxis tick={axisTick} tickLine={false} axisLine={false} />
+              <Tooltip contentStyle={tooltipStyle} cursor={{ fill: "oklch(0.5 0 0 / 8%)" }} />
               <Bar dataKey="count" name="Hotspots" radius={[3, 3, 0, 0]}>
                 {stats.frpBuckets.map((_, i) => (
                   <Cell
@@ -132,7 +135,7 @@ export function AnalyticsCharts({ stats }: { stats: FiresStats | undefined }) {
       {/* Day/night + source mix */}
       <Card className="border-border/60 bg-card/70">
         <CardHeader className="pb-1">
-          <CardTitle className="text-[11px] font-semibold tracking-[0.15em] text-muted-foreground">
+          <CardTitle className="text-xs font-semibold tracking-[0.2em] text-muted-foreground">
             ORBIT PASS & SOURCE MIX
           </CardTitle>
         </CardHeader>

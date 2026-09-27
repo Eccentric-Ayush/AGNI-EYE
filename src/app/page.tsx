@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AlertTriangle, Info } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useFires, useSourcesStatus, useWatchlist, type FiresQuery } from "@/hooks/use-nasa";
+import { useEonet, useFires, useSourcesStatus, useWatchlist, type FiresQuery } from "@/hooks/use-nasa";
 import { FiltersPanel, type Filters } from "@/components/command/filters-panel";
 import { StatsCards } from "@/components/command/stats-cards";
 import { AnalyticsCharts } from "@/components/command/analytics-charts";
@@ -57,11 +57,12 @@ function CommandCenter() {
   );
 
   const { data: fires, isFetching, refetch } = useFires(firesQuery, intervalMs, autoRefresh);
+  const { data: eonet } = useEonet();
   const { data: status, isLoading: statusLoading } = useSourcesStatus();
   const { data: watchData } = useWatchlist();
 
   const features = fires?.features ?? [];
-  const eonetEvents = [];
+  const eonetEvents = eonet?.events ?? [];
 
   const handleFilterChange = (patch: Partial<Filters>) => {
     setFilters((f) => ({ ...f, ...patch }));

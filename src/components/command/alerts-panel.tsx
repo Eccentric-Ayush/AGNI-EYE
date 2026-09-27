@@ -150,7 +150,7 @@ export function AlertsPanel({ onFlyTo, currentBbox, currentRegionName }: AlertsP
                 size="sm"
                 onClick={handleScan}
                 disabled={scan.isPending || (watchData?.regions.length ?? 0) === 0}
-                className="h-7 flex-1 gap-1 bg-orange-600 text-[10px] hover:bg-orange-500"
+                className="h-7 flex-1 gap-1 bg-orange-600 text-[10px] text-white hover:bg-orange-500"
               >
                 <Radar className={`h-3 w-3 ${scan.isPending ? "animate-spin" : ""}`} />
                 {scan.isPending ? "SCANNING LIVE FEED…" : "SCAN REGIONS NOW"}
@@ -201,7 +201,7 @@ export function AlertsPanel({ onFlyTo, currentBbox, currentRegionName }: AlertsP
                 placeholder={`${currentRegionName} — name (optional)`}
                 className="h-7 text-[11px]"
               />
-              <Button size="sm" onClick={handleAdd} disabled={addRegion.isPending} className="h-7 gap-1 bg-orange-600 px-2 text-[10px] hover:bg-orange-500">
+              <Button size="sm" onClick={handleAdd} disabled={addRegion.isPending} className="h-7 gap-1 bg-orange-600 px-2 text-[10px] text-white hover:bg-orange-500">
                 <Plus className="h-3 w-3" /> WATCH
               </Button>
             </div>

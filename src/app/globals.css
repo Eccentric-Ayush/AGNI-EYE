@@ -45,37 +45,37 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(0.141 0.005 285.8);
-  --foreground: oklch(0.96 0 0);
-  --card: oklch(0.17 0.006 285.9);
-  --card-foreground: oklch(0.96 0 0);
-  --popover: oklch(0.18 0.006 285.9);
-  --popover-foreground: oklch(0.96 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.14 0.01 50);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --background: oklch(0.985 0.003 90);
+  --foreground: oklch(0.2 0.01 40);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.01 40);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.01 40);
+  --primary: oklch(0.62 0.19 41);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.955 0.006 60);
+  --secondary-foreground: oklch(0.28 0.01 40);
+  --muted: oklch(0.955 0.006 60);
+  --muted-foreground: oklch(0.48 0.02 40);
+  --accent: oklch(0.94 0.03 60);
+  --accent-foreground: oklch(0.28 0.01 40);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: oklch(0.9 0.006 60);
+  --input: oklch(0.9 0.006 60);
+  --ring: oklch(0.62 0.19 41);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: oklch(0.98 0.004 90);
+  --sidebar-foreground: oklch(0.2 0.01 40);
+  --sidebar-primary: oklch(0.62 0.19 41);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.94 0.03 60);
+  --sidebar-accent-foreground: oklch(0.28 0.01 40);
+  --sidebar-border: oklch(0.9 0.006 60);
+  --sidebar-ring: oklch(0.62 0.19 41);
 }
 
 .dark {
@@ -85,8 +85,8 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
+  --primary: oklch(0.7 0.19 45);
+  --primary-foreground: oklch(0.99 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -123,7 +123,7 @@
 
 /* ============ Agni Eye Command custom styles ============ */
 
-/* Slim dark scrollbars */
+/* Slim themed scrollbars */
 *::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -132,10 +132,16 @@
   background: transparent;
 }
 *::-webkit-scrollbar-thumb {
-  background: oklch(1 0 0 / 14%);
+  background: oklch(0 0 0 / 14%);
   border-radius: 8px;
 }
 *::-webkit-scrollbar-thumb:hover {
+  background: oklch(0 0 0 / 24%);
+}
+.dark *::-webkit-scrollbar-thumb {
+  background: oklch(1 0 0 / 14%);
+}
+.dark *::-webkit-scrollbar-thumb:hover {
   background: oklch(1 0 0 / 24%);
 }
 
@@ -151,22 +157,34 @@
 /* Subtle grid backdrop for header/panels */
 .agni-grid-bg {
   background-image:
-    linear-gradient(oklch(1 0 0 / 3%) 1px, transparent 1px),
-    linear-gradient(90deg, oklch(1 0 0 / 3%) 1px, transparent 1px);
+    linear-gradient(oklch(0 0 0 / 4%) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0 0 0 / 4%) 1px, transparent 1px);
   background-size: 28px 28px;
 }
+.dark .agni-grid-bg {
+  background-image:
+    linear-gradient(oklch(1 0 0 / 3%) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(1 0 0 / 3%) 1px, transparent 1px);
+}
 
-/* Leaflet dark theming */
+/* Leaflet theming (adapts to light/dark) */
 .leaflet-container {
-  background: #0a0a0c;
+  background: oklch(0.93 0.004 90);
   font-family: var(--font-sans);
   outline: none;
 }
+.dark .leaflet-container {
+  background: #0a0a0c;
+}
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  background: oklch(0.19 0.006 285.9);
-  color: oklch(0.96 0 0);
-  border: 1px solid oklch(1 0 0 / 12%);
+  background: var(--popover);
+  color: var(--popover-foreground);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px oklch(0 0 0 / 20%);
+}
+.dark .leaflet-popup-content-wrapper,
+.dark .leaflet-popup-tip {
   box-shadow: 0 10px 30px oklch(0 0 0 / 60%);
 }
 .leaflet-popup-content {
@@ -174,34 +192,40 @@
   min-width: 190px;
 }
 .leaflet-popup-close-button {
-  color: oklch(0.7 0 0) !important;
+  color: var(--muted-foreground) !important;
 }
 .leaflet-control-layers,
 .leaflet-control-zoom,
 .leaflet-control-attribution {
-  background: oklch(0.17 0.006 285.9 / 92%) !important;
-  color: oklch(0.8 0 0) !important;
-  border: 1px solid oklch(1 0 0 / 12%) !important;
+  background: color-mix(in oklch, var(--popover) 92%, transparent) !important;
+  color: var(--popover-foreground) !important;
+  border: 1px solid var(--border) !important;
   border-radius: 8px !important;
   backdrop-filter: blur(6px);
 }
 .leaflet-control-layers-expanded {
   padding: 8px 10px;
-  color: oklch(0.9 0 0);
+  color: var(--popover-foreground);
 }
 .leaflet-control-attribution {
   font-size: 10px !important;
   padding: 1px 6px;
 }
 .leaflet-control-attribution a {
+  color: oklch(0.55 0.16 50) !important;
+}
+.dark .leaflet-control-attribution a {
   color: oklch(0.75 0.14 60) !important;
 }
 .leaflet-control-zoom a {
-  color: oklch(0.9 0 0) !important;
+  color: var(--popover-foreground) !important;
   background: transparent !important;
   border: none !important;
 }
 .leaflet-control-zoom a:hover {
+  background: oklch(0 0 0 / 8%) !important;
+}
+.dark .leaflet-control-zoom a:hover {
   background: oklch(1 0 0 / 8%) !important;
 }
 .leaflet-bar {
