@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 import { deleteSetting, resolveFirmsMapKey, SETTING_KEYS, setSetting } from "@/lib/nasa/settings";
 
@@ -22,6 +23,8 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const denied = requireAdmin(req);
+  if (denied) return denied;
   try {
     const body = (await req.json()) as { mapKey?: string; action?: "clear" };
     if (body.action === "clear") {

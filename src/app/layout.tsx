@@ -15,24 +15,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Agni Eye Command — Live Wildfire Intelligence",
+  title: "AGNI-EYE — Thermal-Source Triage for India",
   description:
-    "Real-time wildfire command center powered by NASA FIRMS, GIBS vector tiles, VIIRS & MODIS satellite fire detections and NASA EONET event feeds. 100% live data, no placeholders.",
+    "Site-aware classification of satellite thermal hotspots over India: industrial fires, persistent industrial sources, crop burning and wildfires, each with explainable evidence. NASA FIRMS/VIIRS + OpenStreetMap + land cover. Smart India Hackathon 2026 · SIH26162.",
   keywords: [
+    "SIH26162",
+    "thermal anomaly classification",
+    "industrial fire detection",
     "NASA FIRMS",
-    "wildfire monitoring",
     "VIIRS",
-    "MODIS",
-    "fire hotspots",
-    "GIBS",
-    "EONET",
-    "live satellite data",
+    "OpenStreetMap",
+    "persistent thermal sources",
+    "India",
   ],
-  authors: [{ name: "Agni Eye Command" }],
+  authors: [{ name: "AGNI-EYE" }],
   openGraph: {
-    title: "Agni Eye Command — Live Wildfire Intelligence",
-    description: "Live NASA satellite wildfire monitoring command center",
-    siteName: "Agni Eye Command",
+    title: "AGNI-EYE — Thermal-Source Triage for India",
+    description: "Which of today's satellite hotspots are not routine — and why.",
+    siteName: "AGNI-EYE",
     type: "website",
   },
 };

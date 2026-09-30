@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
  * Live health of every real NASA data source this app uses.
  */
 export async function GET() {
-  const fresh = cacheGetFresh("sources-status", CACHE_TTL.status);
+  const fresh = cacheGetFresh<Record<string, unknown>>("sources-status", CACHE_TTL.status);
   if (fresh) {
     return NextResponse.json({ ...fresh.value, cached: true });
   }

@@ -241,3 +241,42 @@
   z-index: 1000;
   pointer-events: none;
 }
+
+/* ============ AGNI-EYE triage UI (additive) ============ */
+:root {
+  --class-industrial-anomaly: #ef4444;
+  --class-industrial-persistent: #fb923c;
+  --class-agricultural-burn: #facc15;
+  --class-vegetation-fire: #4ade80;
+  --class-other-static: #c084fc;
+  --class-unclassified: #94a3b8;
+}
+
+/* Visible keyboard focus everywhere (WCAG 2.4.7) */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.dark :focus-visible {
+  outline-color: oklch(0.8 0.15 60);
+}
+
+/* Respect reduced-motion: no pulsing, no animated transitions */
+@media (prefers-reduced-motion: reduce) {
+  .agni-pulse-dot {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Leaflet attribution must stay legible (>= 12px) */
+.leaflet-control-attribution {
+  font-size: 12px !important;
+}

@@ -90,6 +90,8 @@ export interface FireProps {
   acqTime: string;
   dayNight: "D" | "N";
   confidence: number | null;
+  /** VIIRS reports a word ("low" | "nominal" | "high"); MODIS reports a percentage (see `confidence`). */
+  confidenceLabel?: string | null;
   version: string | null;
 }
 
@@ -439,15 +441,17 @@ export async function fetchSourceFires(
         satellite: str(r.attrs.SATELLITE) ?? source,
         latitude: lat,
         longitude: lon,
-        brightness: num(r.attrs.BRIGHTNESS) ?? 0,
-        brightT31: num(r.attrs.BRIGHT_T31),
+        // VIIRS 375 m tiles name these BRIGHT_TI4 / BRIGHT_TI5 (MODIS: BRIGHTNESS / BRIGHT_T31)
+        brightness: num(r.attrs.BRIGHTNESS) ?? num(r.attrs.BRIGHT_TI4) ?? 0,
+        brightT31: num(r.attrs.BRIGHT_T31) ?? num(r.attrs.BRIGHT_TI5),
         frp: num(r.attrs.FRP) ?? 0,
         scan: num(r.attrs.SCAN),
         track: num(r.attrs.TRACK),
         acqDate,
         acqTime,
         dayNight: dn === "N" ? "N" : "D",
-        confidence: num(r.attrs.CONFIDENCE),
+        confidence: typeof r.attrs.CONFIDENCE === "string" && Number.isNaN(parseFloat(r.attrs.CONFIDENCE)) ? null : num(r.attrs.CONFIDENCE),
+        confidenceLabel: typeof r.attrs.CONFIDENCE === "string" && Number.isNaN(parseFloat(r.attrs.CONFIDENCE)) ? r.attrs.CONFIDENCE.toLowerCase() : null,
         version: str(r.attrs.VERSION),
       },
     });

@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
@@ -12,7 +13,9 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ ok: true, alerts, unreadCount });
 }
 
-export async function DELETE() {
+export async function DELETE(req: NextRequest) {
+  const denied = requireAdmin(req);
+  if (denied) return denied;
   await db.fireAlert.deleteMany({});
   return NextResponse.json({ ok: true });
 }

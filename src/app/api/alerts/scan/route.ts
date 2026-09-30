@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/auth";
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { fetchSourceFires, type GibsSource } from "@/lib/nasa/gibs";
@@ -9,7 +10,9 @@ export const dynamic = "force-dynamic";
  * Scan every watched region against the LIVE GIBS hotspot feed (today, UTC)
  * and persist new detections as FireAlert rows (deduped at DB level).
  */
-export async function POST() {
+export async function POST(req: Request) {
+  const denied = requireAdmin(req);
+  if (denied) return denied;
   const t0 = Date.now();
   const regions = await db.watchRegion.findMany({ orderBy: { createdAt: "desc" } });
   if (regions.length === 0) {
