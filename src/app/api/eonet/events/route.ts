@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   const limit = Math.max(1, Math.min(200, parseInt(sp.get("limit") ?? "80", 10) || 80));
 
   const cacheKey = `eonet:${status}:${days}:${limit}`;
-  const fresh = cacheGetFresh(cacheKey, CACHE_TTL.eonet);
+  const fresh = cacheGetFresh<Record<string, unknown>>(cacheKey, CACHE_TTL.eonet);
   if (fresh) {
     return NextResponse.json({ ...fresh.value, cached: true, cacheAge: Math.round(fresh.age / 1000) });
   }

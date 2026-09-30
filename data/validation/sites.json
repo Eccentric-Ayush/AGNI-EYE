@@ -1,0 +1,59 @@
+{
+  "instructions": "Add ONLY sites whose class was verified from external evidence. `evidenceType` says how. See data/validation/README.md.",
+  "sites": [
+    {
+      "name": "Reliance Jamnagar refinery complex",
+      "lat": 22.34806, "lon": 69.86889, "radiusM": 2500,
+      "trueClass": "industrial_persistent",
+      "evidenceType": "documentary",
+      "evidenceUrl": "https://en.wikipedia.org/wiki/Jamnagar_Refinery",
+      "verifiedBy": "public-records web check (no imagery)", "verifiedAt": "2026-09-30",
+      "note": "Operating refinery complex (Reliance Industries). Wikipedia centre point is ~1-2 km from the process area, hence the larger radius. Needs a human SWIR/imagery spot-check."
+    },
+    {
+      "name": "Bhilai Steel Plant (SAIL)",
+      "lat": 21.1780778, "lon": 81.3894306, "radiusM": 1500,
+      "trueClass": "industrial_persistent",
+      "evidenceType": "documentary",
+      "evidenceUrl": "https://en.wikipedia.org/wiki/Bhilai_Steel_Plant",
+      "verifiedBy": "public-records web check (no imagery)", "verifiedAt": "2026-09-30",
+      "note": "Integrated steel plant with blast furnaces, operating since 1955. Needs a human imagery spot-check."
+    },
+    {
+      "name": "Rourkela Steel Plant (SAIL)",
+      "lat": 22.22087, "lon": 84.860542, "radiusM": 2000,
+      "trueClass": "industrial_persistent",
+      "evidenceType": "documentary",
+      "evidenceUrl": "https://en.wikipedia.org/wiki/Rourkela_Steel_Plant",
+      "verifiedBy": "public-records web check (no imagery)", "verifiedAt": "2026-09-30",
+      "note": "Integrated steel plant, continuous hot-metal production. Needs a human imagery spot-check."
+    },
+    {
+      "name": "Gujarat Refinery, Koyali (IOCL)",
+      "lat": 22.3705, "lon": 73.1255, "radiusM": 2000,
+      "trueClass": "industrial_persistent",
+      "evidenceType": "documentary",
+      "evidenceUrl": "https://en.wikipedia.org/wiki/Gujarat_Refinery",
+      "verifiedBy": "public-records web check (no imagery)", "verifiedAt": "2026-09-30",
+      "note": "Operating refinery since 1965. Only a few days with detections in the window."
+    },
+    {
+      "name": "Paradip Refinery (IOCL)",
+      "lat": 20.247639, "lon": 86.598194, "radiusM": 2500,
+      "trueClass": "industrial_persistent",
+      "evidenceType": "documentary",
+      "evidenceUrl": "https://en.wikipedia.org/wiki/Paradip_Refinery",
+      "verifiedBy": "public-records web check (no imagery)", "verifiedAt": "2026-09-30",
+      "note": "Operating refinery at installed capacity. Only a few days with detections in the window."
+    },
+    {
+      "name": "Jharia coalfield underground fires",
+      "lat": 23.751556, "lon": 86.420333, "radiusM": 3000,
+      "trueClass": "other_static",
+      "evidenceType": "documentary",
+      "evidenceUrl": "https://en.wikipedia.org/wiki/Jharia_coalfield",
+      "verifiedBy": "public-records web check (no imagery)", "verifiedAt": "2026-09-30",
+      "note": "Coal-seam fires burning since 1916 and still active per the cited article; non-industrial persistent heat. Area also contains mining, so a nearby detection is not guaranteed to be a seam fire."
+    }
+  ]
+}

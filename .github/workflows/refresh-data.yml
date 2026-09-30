@@ -1,0 +1,68 @@
+# Scheduled refresh of the classified snapshot (stopgap until the Postgres store exists).
+# Re-ingests India VIIRS detections from NASA GIBS, rebuilds data/snapshot/latest.json.gz and
+# commits it; Vercel then redeploys with fresh data.
+#
+# STATUS: written but not yet exercised in CI — run it once with "Run workflow" and read the log
+# before relying on the schedule.
+name: refresh-data
+
+on:
+  schedule:
+    - cron: "15 */6 * * *" # every 6 hours (UTC)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Raw per-day tiles are reproducible and git-ignored; cache them so each run only fetches new days.
+      - uses: actions/cache@v4
+        with:
+          path: data/raw
+          key: raw-${{ github.run_id }}
+          restore-keys: raw-
+
+      - name: Ingest last 30 days (idempotent; last 2 days always re-fetched)
+        run: npm run ingest -- --days 30
+
+      - name: Build classified snapshot
+        run: npm run build:snapshot
+
+      - name: Load into PostGIS (only if the DATABASE_URL secret is configured)
+        if: ${{ env.DATABASE_URL != '' }}
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          npm run db:setup
+          npm run db:load
+
+      - name: Commit snapshot if changed
+        run: |
+          git config user.name "agni-eye-bot"
+          git config user.email "agni-eye-bot@users.noreply.github.com"
+          git add data/snapshot/latest.json.gz data/landcover-cache.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "data: refresh classified snapshot"
+            git push
+          fi

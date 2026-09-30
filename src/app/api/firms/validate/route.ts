@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 import { fetchFirmsArea } from "@/lib/nasa/firms";
 import { resolveFirmsMapKey } from "@/lib/nasa/settings";
@@ -9,6 +10,8 @@ export const dynamic = "force-dynamic";
  * Probe bbox deliberately empty of land where possible (open Atlantic).
  */
 export async function POST(req: NextRequest) {
+  const denied = requireAdmin(req);
+  if (denied) return denied;
   try {
     const body = (await req.json()) as { mapKey?: string };
     const key = (body.mapKey ?? "").trim() || (await resolveFirmsMapKey());

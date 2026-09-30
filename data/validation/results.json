@@ -1,0 +1,188 @@
+{
+  "available": true,
+  "generatedAt": "2026-09-30T08:16:00.539Z",
+  "classifierVersion": "rules-0.1.0",
+  "n": 6,
+  "skippedNoDetection": 0,
+  "accuracy": 0.5,
+  "industrialVsOther": {
+    "n": 6,
+    "accuracy": 0.833
+  },
+  "evidenceMix": {
+    "documentary": 6
+  },
+  "perClass": {
+    "industrial_anomaly": {
+      "precision": 0,
+      "recall": null,
+      "support": 0
+    },
+    "industrial_persistent": {
+      "precision": 1,
+      "recall": 0.4,
+      "support": 5
+    },
+    "agricultural_burn": {
+      "precision": null,
+      "recall": null,
+      "support": 0
+    },
+    "vegetation_fire": {
+      "precision": null,
+      "recall": null,
+      "support": 0
+    },
+    "other_static": {
+      "precision": 0.5,
+      "recall": 1,
+      "support": 1
+    },
+    "unclassified": {
+      "precision": null,
+      "recall": null,
+      "support": 0
+    }
+  },
+  "confusion": {
+    "labels": [
+      "industrial_anomaly",
+      "industrial_persistent",
+      "agricultural_burn",
+      "vegetation_fire",
+      "other_static",
+      "unclassified"
+    ],
+    "matrix": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        2,
+        2,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  "sites": [
+    {
+      "name": "Reliance Jamnagar refinery complex",
+      "evidenceType": "documentary",
+      "radiusM": 2500,
+      "trueClass": "industrial_persistent",
+      "predictedClass": "industrial_persistent",
+      "correct": true,
+      "status": "evaluated",
+      "confidence": "high",
+      "date": "2026-09-29",
+      "note": "Operating refinery complex (Reliance Industries). Wikipedia centre point is ~1-2 km from the process area, hence the larger radius. Needs a human SWIR/imagery spot-check."
+    },
+    {
+      "name": "Bhilai Steel Plant (SAIL)",
+      "evidenceType": "documentary",
+      "radiusM": 1500,
+      "trueClass": "industrial_persistent",
+      "predictedClass": "industrial_persistent",
+      "correct": true,
+      "status": "evaluated",
+      "confidence": "high",
+      "date": "2026-09-29",
+      "note": "Integrated steel plant with blast furnaces, operating since 1955. Needs a human imagery spot-check."
+    },
+    {
+      "name": "Rourkela Steel Plant (SAIL)",
+      "evidenceType": "documentary",
+      "radiusM": 2000,
+      "trueClass": "industrial_persistent",
+      "predictedClass": "other_static",
+      "correct": false,
+      "status": "evaluated",
+      "confidence": "medium",
+      "date": "2026-09-29",
+      "note": "Integrated steel plant, continuous hot-metal production. Needs a human imagery spot-check."
+    },
+    {
+      "name": "Gujarat Refinery, Koyali (IOCL)",
+      "evidenceType": "documentary",
+      "radiusM": 2000,
+      "trueClass": "industrial_persistent",
+      "predictedClass": "industrial_anomaly",
+      "correct": false,
+      "status": "evaluated",
+      "confidence": "medium",
+      "date": "2026-09-29",
+      "note": "Operating refinery since 1965. Only a few days with detections in the window."
+    },
+    {
+      "name": "Paradip Refinery (IOCL)",
+      "evidenceType": "documentary",
+      "radiusM": 2500,
+      "trueClass": "industrial_persistent",
+      "predictedClass": "industrial_anomaly",
+      "correct": false,
+      "status": "evaluated",
+      "confidence": "medium",
+      "date": "2026-09-18",
+      "note": "Operating refinery at installed capacity. Only a few days with detections in the window."
+    },
+    {
+      "name": "Jharia coalfield underground fires",
+      "evidenceType": "documentary",
+      "radiusM": 3000,
+      "trueClass": "other_static",
+      "predictedClass": "other_static",
+      "correct": true,
+      "status": "evaluated",
+      "confidence": "high",
+      "date": "2026-09-29",
+      "note": "Coal-seam fires burning since 1916 and still active per the cited article; non-industrial persistent heat. Area also contains mining, so a nearby detection is not guaranteed to be a seam fire."
+    }
+  ],
+  "caveats": [
+    "Small verified set (n=6); per-class figures are indicative, not statistically robust.",
+    "Thresholds were set a priori (src/lib/classify/config.ts); tuning on this set would inflate these numbers.",
+    "Sites with no VIIRS detection on the chosen date are excluded, not counted as correct.",
+    "Verified classes come from external evidence recorded per site (evidenceUrl/verifiedBy). Rows marked \"documentary\" rest on facility records only, not on imagery of the detection itself.",
+    "A documented continuously-operating plant does not prove a given day's detection was routine; use the industrial-vs-other figure as the fair comparison for those rows."
+  ]
+}

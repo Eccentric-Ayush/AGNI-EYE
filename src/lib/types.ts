@@ -23,6 +23,7 @@ export interface FireProps {
   acqTime: string;
   dayNight: "D" | "N";
   confidence: number | null;
+  confidenceLabel?: string | null;
   version: string | null;
 }
 
